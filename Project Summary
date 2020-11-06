@@ -1,0 +1,103 @@
+BIG MART SALES PREDICTION
+
+TEAM: KRISHNAPRIYA K
+      ANNA MARY JACOB
+
+PROBLEM STATEMENT
+Sales Prediction for Big Mart Outlets
+
+OBJECTIVE
+The aim is to build a predictive model and predict the sales of each product at a particular outlet.
+
+EVALUATION METRIC
+
+The model performance will be evaluated on the basis of it's prediction of the sales for the test data.
+Big mart will use Root Mean Square Error to judge our response.
+
+DATA DICTIONARY
+The data scientists at BigMart have collected 2013 sales data for 1559 products across 10 stores in different cities. Also, certain attributes of each product and store have been defined
+We have train (8523) and test (5681) data set, train data set has both input and output variable(s). You need to predict the sales for test data set.
+
+
+Train file: CSV containing the item outlet information with sales value
+Variable                     Description
+Item_Identifier 	     Unique product ID
+Item_Weight 	             Weight of product
+Item_Fat_Content 	     Whether the product is low fat or not
+Item_Visibility 	     The % of total display area of all products in a store allocated to the particular product
+Item_Type 	             The category to which the product belongs
+Item_MRP 	             Maximum Retail Price (list price) of the product
+Outlet_Identifier 	     Unique store ID
+Outlet_Establishment_Year    The year in which store was established
+Outlet_Size 	             The size of the store in terms of ground area covered
+Outlet_Location_Type 	     The type of city in which the store is located
+Outlet_Type 	             Whether the outlet is just a grocery store or some sort of supermarket
+Item_Outlet_Sales 	     Sales of the product in the particular store. This is the outcome variable to be predicted
+
+The test file contains all columns included in the train file except the Item_Outlet_Sales, which has to be predicted.
+
+STEPS UNDERTAKEN BEFORE PREPROCESSING
+
+1. Importing of required libraries
+2. Loading of the test and train data sets
+3. We create a new column for the train and test data to identify the source of the data and to split it after the required preprocessing has been done.
+
+
+DATA PREPROCESSING
+
+1.The first step is to combine both train and test dataset into one.
+2.Determine the datatypes of each column and mean,std deviation,max,min,count,percentiles of dataset.
+3.After evaluating the correlation between each variables, we found that item_MRP is positively and higly correlated with Item_Outlet_Sales. 
+4.The columns that has very less correlation are dropped. In this case, the column Outlet establishment year is dropped as it has a correlation of -0.04 with Item_Outlet_Sales.
+5.The next step undergone is the performance of EDA(Univariate and Bivariate) to identify the relevance of each field.
+
+UNIVARIATE ANALYSIS
+
+  * Boxplot is used to identify if there are outliers in that field.
+
+  * Histogram is used to map out the target variable ie., Item_Outlet_Sales. We can see that the distribution is skewed towards the right.
+
+Each relevent field is taken individually and various EDA methods are used. As in this case, after taking the unique variables in Item_Fat_content we understand that there are only two actual unique variables low fat and regular but due to mislabeling it has become five different variables. So we map the different variables into two variables .
+
+* Barplots are made for each relevant column (Item_Fat_Content, Item_Type, Outlet_Size, Outlet_Location_Type)
+
+BIVARIATE ANALYSIS
+
+* The column to be comapared is grouped with respect to another column and a barplot is made. Here we comapared the columns Item_fat_content and Item Type with the target variable Item_Outlet_Sales to better understand how the fat content and type of food affect the sales of the product.
+
+5.MISSING VALUE HANDLING
+
+* We took the sum of null values present in the data
+* The missing value in the column with the datatype object is replaced with the mode of the column(Outlet Size)
+* The missing values in the column with the datatype float is replaced with the mean of the column(Item Weight, Item_Outlet_Sales)
+* We recheck to confirm that there are no more null values present in the data set
+
+6. CREATION OF DUMMY VARIABLES
+
+* We have to convert the catagorical variables into numerical values using the get_dummies function
+* The columns Item_Fat_Content, Item_Type, Outlet_Location_Type, Outlet_Size, Outlet_Type is converted into numerical values which gives the data 36 columns
+
+7. RESPLITTING INTO TRAIN AND TEST DATA
+
+* After the above steps the combined data has to resplit into train and test data. 
+* We do this by utilising the column that we created that specifies whther the data has been derived from the train data set or the test data set.
+* The rows of data that has 'source' as 'train' or 'test' will be separated as 'train' and 'test' respectively.
+
+8. The unnecessary columns from both the train and the test data sets were dropped.
+
+9. The train data was then split into X and Y variable.
+   X is the train data set from which both the ID columns and the target variable (Item_Outlet_Sales) was dropped.
+   Y is the target variable column (Item_Outlet_Sales) of the train dataset.
+
+10. MODELLING
+
+* From sklearn.model_selection, train_test_split is imported
+* The train data is split into X_train, Y_train, X_test and Y_test with the test size kept to 33% and random_state at 42.
+
+Various models are used on the data and the Testing Error, Training error and Root Mean Square Error is determined in each case.
+
+11. The submission file is should contain the Item Identifier, Outlet Identifier and the predicted Item_Outlet_Sales of the test data.
+	
+
+
+ 
